@@ -84,7 +84,7 @@
 
 
 // code version 
-#define VER "596"
+#define VER "596.JDP"
 
 // --------------------------------------
 
