@@ -1,6 +1,6 @@
 // digital clock display of the time
 void DisplayTime_DS1302()   {
-  Serial.print(F("Time:"));
+  message_out.print(F("Time:"));
   Time t = rtc.time();  
  
   // Name the day of the week.
@@ -14,7 +14,7 @@ void DisplayTime_DS1302()   {
            t.hr, t.min, t.sec);
 
   // Print the formatted string to serial so we can see the time.
-  Serial.print(buf);
+  message_out.print(buf);
  
   }
 
@@ -22,15 +22,15 @@ void DisplayTime_DS1302()   {
 void Print_Time_On_Serial_Monitor() {
       
       if (PCB == 0) {
-        Serial.print(F("Time:"));
+        message_out.print(F("Time:"));
         Time t = rtc.time();
-        Serial.print(t.hr);
-        Serial.print(":");
-        if (t.min < 10) Serial.print(F("0"));
-        Serial.print(t.min);
-        Serial.print(".");
-        if (t.sec < 10) Serial.print(F("0"));
-        Serial.print(t.sec);
+        message_out.print(t.hr);
+        message_out.print(":");
+        if (t.min < 10) message_out.print(F("0"));
+        message_out.print(t.min);
+        message_out.print(".");
+        if (t.sec < 10) message_out.print(F("0"));
+        message_out.print(t.sec);
         }
       if (PCB == 1) {
         Display_DS3231_Time();       
@@ -45,8 +45,8 @@ void Activate_Alarms() {
   // Manual ALARM 1
   if (Alarm_1_ON == 1) {  
      if ((t.hr == Alarm_1_Hour) && (t.min == Alarm_1_Minute)) {
-       Serial.println(F(""));
-       Serial.println(F("ALARM 1"));
+       message_out.println(F(""));
+       message_out.println(F("ALARM 1"));
        delay(2000);
        // Insert action for Alarm 1 Here
        if (Alarm_1_Action == 1) {
@@ -67,8 +67,8 @@ void Activate_Alarms() {
   // Manual ALARM 2
   if (Alarm_2_ON == 1) {  
      if ((t.hr == Alarm_2_Hour) && (t.min == Alarm_2_Minute)) {
-       Serial.println(F(""));
-       Serial.println(F("ALARM 2"));
+       message_out.println(F(""));
+       message_out.println(F("ALARM 2"));
        delay(2000);
 
        if (Alarm_2_Action == 1) {
@@ -86,8 +86,8 @@ void Activate_Alarms() {
   // Manual ALARM 3
   if (Alarm_3_ON == 1) {  
      if ((t.hr == Alarm_3_Hour) && (t.min == Alarm_3_Minute)) {
-       Serial.println(F(""));
-       Serial.println(F("ALARM 3"));
+       message_out.println(F(""));
+       message_out.println(F("ALARM 3"));
        delay(2000);
        if (Alarm_3_Action == 1) {
         Exit_Zone = 1;
@@ -111,7 +111,7 @@ void Check_Timed_Mow() {
   if (Alarm_Timed_Mow_ON == 1) {  
       Time t = rtc.time();
      if ((t.hr == Alarm_Timed_Mow_Hour) && (t.min == Alarm_Timed_Mow_Minute)) {
-       Serial.println(F("Timed Mow Complete"));
+       message_out.println(F("Timed Mow Complete"));
        delay(2000);
        //Insert action for Timed Mow Alarm Here
          if (Use_Charging_Station == 1) Manouver_Go_To_Charging_Station();                       // Stops the mowing and sends the mower back to the charging station via the permieter wire
@@ -126,34 +126,34 @@ void Display_Next_Alarm()  {
   //Print_Day();
   
   if (Alarm_1_ON == 1 ) {
-  Serial.print(F("|Alarm 1:"));
-  Serial.print(Alarm_1_Hour);
-  Serial.print(F(":"));
-  if (Alarm_1_Minute < 10) Serial.print ("0");
-  Serial.print(Alarm_1_Minute);
-  Serial.print("|");
+  message_out.print(F("|Alarm 1:"));
+  message_out.print(Alarm_1_Hour);
+  message_out.print(F(":"));
+  if (Alarm_1_Minute < 10) message_out.print ("0");
+  message_out.print(Alarm_1_Minute);
+  message_out.print("|");
   }
-  if (Alarm_1_ON == 0) Serial.print("|A1 OFF");
+  if (Alarm_1_ON == 0) message_out.print("|A1 OFF");
  
   if (Alarm_2_ON == 1) {
-  Serial.print(F("|Alarm 2:"));
-  Serial.print(Alarm_2_Hour);
-  Serial.print(F(":"));
-  if (Alarm_2_Minute < 10) Serial.print ("0");
-  Serial.print(Alarm_2_Minute);
-  Serial.print("|");
+  message_out.print(F("|Alarm 2:"));
+  message_out.print(Alarm_2_Hour);
+  message_out.print(F(":"));
+  if (Alarm_2_Minute < 10) message_out.print ("0");
+  message_out.print(Alarm_2_Minute);
+  message_out.print("|");
   }
-  if (Alarm_2_ON == 0) Serial.print("|A2 OFF");
+  if (Alarm_2_ON == 0) message_out.print("|A2 OFF");
   
   if (Alarm_3_ON == 1) {
-  Serial.print(F("|Alarm 3:"));
-  Serial.print(Alarm_3_Hour);
-  Serial.print(F(":"));
-  if (Alarm_3_Minute < 10) Serial.print ("0");
-  Serial.print(Alarm_3_Minute);
-  Serial.print("|");
+  message_out.print(F("|Alarm 3:"));
+  message_out.print(Alarm_3_Hour);
+  message_out.print(F(":"));
+  if (Alarm_3_Minute < 10) message_out.print ("0");
+  message_out.print(Alarm_3_Minute);
+  message_out.print("|");
   }
-  if (Alarm_3_ON == 0) Serial.print("|A3 OFF");
+  if (Alarm_3_ON == 0) message_out.print("|A3 OFF");
 
    
 }
@@ -162,7 +162,7 @@ void Set_Time_On_DS1302(){
    // Set_Time to 1 in the setting menu to set time.  Load the sketch then immediatley Set_Time = 0 and reload the sketch.
         rtc.writeProtect(false);
         rtc.halt(false);
-        Time t(2019, 9, 14, 17, 03, 00, Time::kSaturday);            // Year XXXX, Month XX, Day XX, Hour XX, Minute XX, Second, kXYZday
+        Time t(2020, 11, 6, 19, 7, 00, Time::kFriday);            // Year XXXX, Month XX, Day XX, Hour XX, Minute XX, Second, kXYZday
         rtc.time(t);    
         delay(10);
    }
@@ -245,14 +245,14 @@ void Display_DS3231_Time() {
 Time_Hour = hour;
 Time_Minute = minute;
 Time_Second = second;
-Serial.print("Time:");
-Serial.print(Time_Hour);
-Serial.print(":");
-if (Time_Minute < 10) Serial.print("0");
-Serial.print(Time_Minute);
-Serial.print(":");
-if (Time_Second < 10) Serial.print("0");
-Serial.print(Time_Second);
+message_out.print("Time:");
+message_out.print(Time_Hour);
+message_out.print(":");
+if (Time_Minute < 10) message_out.print("0");
+message_out.print(Time_Minute);
+message_out.print(":");
+if (Time_Second < 10) message_out.print("0");
+message_out.print(Time_Second);
 
 }
 

@@ -37,13 +37,13 @@ void Check_Membrane_Switch_Input_Docked() {
 
     
     if(!Start_Key_X)  {                                    // If the start key is pressed
-        Serial.println();
-        Serial.println(F("Start Key Pressed"));
+        message_out.println();
+        message_out.println(F("Start Key Pressed"));
         Menu_Complete = false;                                // Menu complete will return to the normal loop
         lcd.clear();
         delay(5);
-        Serial.println();
-        Serial.println(F("Docked Menu Activated"));
+        message_out.println();
+        message_out.println(F("Docked Menu Activated"));
         delay(500);
         lcd.clear();
         delay(5);
@@ -62,11 +62,11 @@ void Check_Membrane_Switch_Input_Docked() {
              
         if(!Start_Key_X){
           Menu_Complete = true;
-          Serial.println(F("Start key is pressed"));
+          message_out.println(F("Start key is pressed"));
           lcd.clear();
           }
         if(!Plus_Key_X) {
-          Serial.println(F("+ key is pressed"));
+          message_out.println(F("+ key is pressed"));
           Menu_View = Menu_View - 1;
           Run_Menu_Order_Docked();
           }
@@ -75,7 +75,7 @@ void Check_Membrane_Switch_Input_Docked() {
           Run_Menu_Order_Docked();
         }
         if(!Stop_Key_X){
-          Serial.println(F("Stop key is pressed"));
+          message_out.println(F("Stop key is pressed"));
           Menu_Complete = true;
           lcd.clear();
           lcd.setCursor(0,0);
@@ -95,7 +95,7 @@ void Check_Membrane_Switch_Input_Docked() {
  void Run_Menu_Order_Docked() {
      if (Menu_View > Max_Options_Docked) Menu_View = Menu_View -1;
      if (Menu_View < 0) Menu_View = Menu_View + 1;      
-     Serial.print(F("- key is pressed "));
+     message_out.print(F("- key is pressed "));
      lcd.clear();
      lcd.setCursor(1,0);
      Print_LCD_Menu_Docked(Menu_View);
@@ -104,10 +104,10 @@ void Check_Membrane_Switch_Input_Docked() {
      lcd.setCursor(0,0);
      lcd.print(">");
      Menu_Mode_Selection = Menu_View;
-     Serial.print(F("Menu View : "));
-     Serial.print(Menu_View);
-     Serial.print(F("| Menu Selection"));
-     Serial.println(Menu_Mode_Selection);
+     message_out.print(F("Menu View : "));
+     message_out.print(Menu_View);
+     message_out.print(F("| Menu Selection"));
+     message_out.println(Menu_Mode_Selection);
      delay(100);
      }
 
@@ -121,7 +121,7 @@ void Activate_Menu_Option_Docked() {
        lcd.print("Manuel Start");
        lcd.setCursor(0,1);
        lcd.print("Exit Dock Z1");
-       Serial.println(F("Exit to Zone 1 - Free Mow"));
+       message_out.println(F("Exit to Zone 1 - Free Mow"));
        delay(1000);
        lcd.clear();
        Print_Membrane_Switch_Input_Timing();
@@ -159,7 +159,7 @@ void Activate_Menu_Option_Docked() {
 
      if (Menu_Mode_Selection == 3) {
         // Quick Start the Mower in the middle of the Garden;
-        Serial.println("Quick Start Selected");
+        message_out.println("Quick Start Selected");
         Print_Membrane_Switch_Input_Timing();                             // Changes the menu to select the mow time
         Menu_Mode_Selection = 0;
         delay(1000);
@@ -171,7 +171,7 @@ void Activate_Menu_Option_Docked() {
      if (Menu_Mode_Selection == 4) {
         lcd.clear();
         lcd.print("Trampoline Cut!");
-        Serial.println(F("Mower Set to Cut under Trampoline"));
+        message_out.println(F("Mower Set to Cut under Trampoline"));
         Menu_Mode_Selection = 0;
         delay(3000);
         lcd.clear();
@@ -187,7 +187,7 @@ void Activate_Menu_Option_Docked() {
        lcd.clear();
        Print_Membrane_Switch_Input_Timing();                             // Changes the menu to select the mow time
        if (Mow_Time_Set == 1) {
-         Serial.println(F("Cutting the grass on the boundary wire"));
+         message_out.println(F("Cutting the grass on the boundary wire"));
          Blade_Override = 1;
          Track_Wire_Itterations = 6000;
          Exit_Zone = 3;    
@@ -199,7 +199,7 @@ void Activate_Menu_Option_Docked() {
       if (Menu_Mode_Selection == 6) {
         lcd.clear();
         lcd.print("Test Mower Menu");
-        Serial.println(F("Test Menu Selected"));
+        message_out.println(F("Test Menu Selected"));
         Menu_Mode_Selection = 0;
         delay(1000);
         lcd.clear();
@@ -208,7 +208,7 @@ void Activate_Menu_Option_Docked() {
       if (Menu_Mode_Selection == 7) {
         lcd.clear();
         lcd.print("Mower Setup");
-        Serial.println(F("Mower Setup Selected"));
+        message_out.println(F("Mower Setup Selected"));
         Menu_Mode_Selection = 0;
         delay(1000);
         lcd.clear();

@@ -19,13 +19,13 @@ void Motor_Action_Go_Mowing_Speed() {
 void Motor_Action_Go_Full_Speed()     {
       analogWrite(ENAPin, PWM_MaxSpeed_RH);                       // Speed = 0-255  (255 is max speed). Speed is set in the settings                        
       analogWrite(ENBPin, PWM_MaxSpeed_LH);                       // Anaolgwirte sends PWM signals Speed = 0-255  (255 is max speed)
-      Serial.print(F("Wheel:FULL|"));
+      message_out.print(F("Wheel:FULL|"));
       }  
 
 void Motor_Action_Go_Slow_Speed()     {
       analogWrite(ENAPin,  PWM_Slow_Speed_RH);                       // Speed = 0-255  (255 is max speed). Speed is set in the settings                        
       analogWrite(ENBPin,  PWM_Slow_Speed_LH);                       // Anaolgwirte sends PWM signals Speed = 0-255  (255 is max speed)
-      Serial.print(F("Wheel:SLOW|"));
+      message_out.print(F("Wheel:SLOW|"));
       }  
 
 void Motor_Action_GoFullSpeed_Out_Garage()     {
@@ -37,7 +37,7 @@ void Motor_Action_GoFullSpeed_Out_Garage()     {
   
   analogWrite(ENAPin, PWM_MaxSpeed_RH);                                       // Speed = 0-255  (255 is max speed). Speed is set in the settings
   analogWrite(ENBPin, PWM_MaxSpeed_LH);   
-  Serial.print(F("Wheel:FULL|"));
+  message_out.print(F("Wheel:FULL|"));
   }
 
 
@@ -46,7 +46,7 @@ void SetPins_ToGoForwards()     {                                 // Motor Bridg
   digitalWrite(IN2Pin, HIGH);
   digitalWrite(IN3Pin, LOW);
   digitalWrite(IN4Pin, HIGH);
-  Serial.print(F("Wheel:For|"));
+  message_out.print(F("Wheel:For|"));
   }
 
 
@@ -55,7 +55,7 @@ void SetPins_ToGoBackwards()      {                               // Motor Bridg
   digitalWrite(IN2Pin, LOW);
   digitalWrite(IN3Pin, HIGH);                                     // Motor 2
   digitalWrite(IN4Pin, LOW);
-  Serial.print(F("Wheel:Rev|"));
+  message_out.print(F("Wheel:Rev|"));
   delay(20);
   }
 
@@ -69,7 +69,7 @@ void Motor_Action_Stop_Motors()  {                                     // Motor 
   digitalWrite(IN3Pin, LOW);
   digitalWrite(IN4Pin, LOW);
 
-  Serial.print(F("Wheel:0FF|"));
+  message_out.print(F("Wheel:0FF|"));
 }
 
 
@@ -78,7 +78,7 @@ void SetPins_ToTurnLeft()       {                              // Pins are set s
     digitalWrite(IN2Pin, HIGH);
     digitalWrite(IN3Pin, HIGH);                                  // Motor 2
     digitalWrite(IN4Pin, LOW);
-    Serial.print(F("Wheel:TL_|"));  
+    message_out.print(F("Wheel:TL_|"));  
     }
 
 
@@ -87,7 +87,7 @@ void SetPins_ToTurnRight() {                                    // Pins are set 
       digitalWrite(IN2Pin, LOW);
       digitalWrite(IN3Pin, LOW);                                    //Motor 2
       digitalWrite(IN4Pin, HIGH);
-      Serial.print(F("Wheel:R|"));
+      message_out.print(F("Wheel:R|"));
       }
 
 
@@ -102,12 +102,18 @@ void Motor_Action_Turn_Speed() {
 void Motor_Action_Spin_Blades()  {
   if (Cutting_Blades_Activate == 1) {                                       // Blades are turn ON in settings and will spin!
     delay(20);
-    digitalWrite(R_EN, HIGH);
-    digitalWrite(L_EN, HIGH);
+    digitalWrite(PIN_MOW_MOTOR_RIGHT_UP, HIGH);
+    digitalWrite(PIN_MOW_MOTOR_RIGHT_DN, HIGH);
+	digitalWrite(PIN_MOW_MOTOR_CENTER_UP, HIGH);
+    digitalWrite(PIN_MOW_MOTOR_CENTER_DN, HIGH);
+	digitalWrite(PIN_MOW_MOTOR_LEFT_UP, HIGH);
+    digitalWrite(PIN_MOW_MOTOR_LEFT_DN, HIGH);
     delay(20);
-    analogWrite(RPWM, PWM_Blade_Speed);
+    analogWrite(PIN_MOW_MOTOR_RIGHT_SPEED, PWM_Blade_Speed);
+	analogWrite(PIN_MOW_MOTOR_CENTER_SPEED, PWM_Blade_Speed);
+	analogWrite(PIN_MOW_MOTOR_LEFT_SPEED, PWM_Blade_Speed);
     delay(20);
-    Serial.print(F("Blades:ON_|"));
+    message_out.print(F("Blades:ON_|"));
    }                 
 
   if (Cutting_Blades_Activate == 0) {                                     // Blades are turn off in settings and will not spin!
@@ -118,20 +124,24 @@ void Motor_Action_Spin_Blades()  {
 
 void Motor_Action_Stop_Spin_Blades()  {
   delay(20);
-  digitalWrite(R_EN, LOW);
-  digitalWrite(L_EN, LOW);
+    digitalWrite(PIN_MOW_MOTOR_RIGHT_UP, LOW);
+    digitalWrite(PIN_MOW_MOTOR_RIGHT_DN, LOW);
+	digitalWrite(PIN_MOW_MOTOR_CENTER_UP, LOW);
+    digitalWrite(PIN_MOW_MOTOR_CENTER_DN, LOW);
+	digitalWrite(PIN_MOW_MOTOR_LEFT_UP, LOW);
+    digitalWrite(PIN_MOW_MOTOR_LEFT_DN, LOW);
   delay(20);
-  Serial.print(F("Blades:0FF|"));
+  message_out.print(F("Blades:0FF|"));
 }
 
 //Steers the Mower depending on the PID input from the Algorythm
 void Motor_Action_Dynamic_PWM_Steering() {
       analogWrite(ENAPin, PWM_Right);                             // ENA low = Right Swerve   ENB low = Left Swerve
       analogWrite(ENBPin, PWM_Left);
-      Serial.print(F("PWM_R:"));
-      Serial.print(PWM_Right);
-      Serial.print(F("|"));
-      Serial.print(F("PWM_L:"));
-      Serial.print(PWM_Left);
-      Serial.print(F("|"));
+      message_out.print(F("PWM_R:"));
+      message_out.print(PWM_Right);
+      message_out.print(F("|"));
+      message_out.print(F("PWM_L:"));
+      message_out.print(PWM_Left);
+      message_out.print(F("|"));
 }

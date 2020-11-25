@@ -11,8 +11,8 @@ void Check_Tilt_Tip_Angle() {
   if (Angle_Sensor_Enabled == 1)  {  
       Tilt_Angle_Sensed = digitalRead(Tilt_Angle);          // reads the Tilt Angle sensor
       // Check if the Tilt Sensor is active
-      Serial.print("|A:");
-      Serial.print(Tilt_Angle_Sensed); 
+      message_out.print("|A:");
+      message_out.print(Tilt_Angle_Sensed); 
       if ((Mower_Running == 1) && (Tilt_Angle_Sensed == 0) && (Tilt_Orientation_Sensed == 0)) Take_Tilt_Action();
       }
   if (Angle_Sensor_Enabled == 0) {
@@ -22,9 +22,9 @@ void Check_Tilt_Tip_Angle() {
   // Check Tip Sensor
   if (Tip_Over_Sensor_Enabled == 1) {
     Tilt_Orientation_Sensed = digitalRead(Tilt_Orientation);    // reads the Tilt Orientation sensor
-    Serial.print("|O:");
-    Serial.print(Tilt_Orientation_Sensed);
-    Serial.print("|"); 
+    message_out.print("|O:");
+    message_out.print(Tilt_Orientation_Sensed);
+    message_out.print("|"); 
     if ((Mower_Running == 1) && (Tilt_Orientation_Sensed == 1)) Take_Orientation_Action();
     }
   if (Tip_Over_Sensor_Enabled == 0) {
@@ -37,8 +37,8 @@ void Check_Tilt_Tip_Angle() {
 // Action if Angle Sensor is activated
 void Take_Tilt_Action() {
   if (Angle_Sensor_Enabled == 1) {        
-        Serial.println(" ");
-        Serial.println("Tilt Sensed");
+        message_out.println(" ");
+        message_out.println("Tilt Sensed");
         //Motor_Action_Stop_Spin_Blades();
         Motor_Action_Stop_Motors();
         SetPins_ToGoBackwards();
@@ -55,7 +55,7 @@ void Take_Tilt_Action() {
           if (Tilt_Angle_Sensed == 1) Tip_Stop = false;
         }
     
-        Serial.println("Turning Around After Tip Stop");
+        message_out.println("Turning Around After Tip Stop");
         SetPins_ToTurnRight(); 
         Motor_Action_Go_Full_Speed();
         delay (random(Mower_Turn_Delay_Min, Mower_Turn_Delay_Max));
@@ -73,11 +73,11 @@ void Take_Orientation_Action() {
           Tilt_Orientation_Sensed = digitalRead(Tilt_Orientation);    // reads the Tilt Orientation sensor
 
           if (Tilt_Orientation_Sensed == 1) {   
-              Serial.println(F(" ")); 
-              Serial.println(F("***********************************"));
-              Serial.println(F("***** TIP OVER PROTECTION !!! *****"));     
-              Serial.println(F("***********************************"));
-              Serial.println(F(" ")); 
+              message_out.println(F(" ")); 
+              message_out.println(F("***********************************"));
+              message_out.println(F("***** TIP OVER PROTECTION !!! *****"));     
+              message_out.println(F("***********************************"));
+              message_out.println(F(" ")); 
               Motor_Action_Stop_Spin_Blades();
               Motor_Action_Stop_Motors();
               Tilt_Orientation_Sensed = 1;

@@ -1,10 +1,12 @@
 // Infornation to be printed to the Mower LCD screen
 
 void Setup_Run_LCD_Intro () {
-  Serial.println("Setup LCD");
-  lcd.begin(16, 2);
+  message_out.println("Setup LCD");
+  //lcd.begin(16, 2);				// comented out by JDP
+  lcd.init();						// added by JDP
+  lcd.backlight();					// added by JDP
   lcd.clear();
-  lcd.print("ReP_AL Robot");
+  lcd.print("Page's T10 Lawnbot");	// updated by JDP
   lcd.setCursor(0,1);
   lcd.print(Version);  
   if (WIFI_Enabled == 1) {
@@ -13,7 +15,7 @@ void Setup_Run_LCD_Intro () {
     }
   delay(1000);
   lcd.clear();
-  Serial.println("LCD Setup OK");
+  message_out.println("LCD Setup OK");
   }
 
 
@@ -185,6 +187,13 @@ void Print_Sonar_Hit()  {
     lcd.setCursor(0,1);
     lcd.print("Sonar Object ");  
     }
+
+	// Added by JDP ********************************************************************************
+	void Print_Rear_Sonar_Hit()  {
+    lcd.setCursor(0,1);
+    lcd.print("Rear Sonar Object ");  
+    }
+	// End add by JDP ********************************************************************************
 
 void Print_LCD_Compass_Home() {
     lcd.clear();

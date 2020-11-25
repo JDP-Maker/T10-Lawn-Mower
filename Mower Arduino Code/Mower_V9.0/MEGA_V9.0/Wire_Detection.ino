@@ -69,17 +69,17 @@ void Check_Wire_In_Out() {
       Wire_Refind_Tries = Wire_Refind_Tries + 1;
       Loop_Cycle_Mowing = 0;
       if ((WIFI_Enabled == 1) && (Manuel_Mode == 0)) Get_WIFI_Commands();                                   // TX and RX data from NodeMCU
-      Serial.println(F(""));
-      Serial.print(F("|Wire Refind Atempts:"));
-      Serial.print(Wire_Refind_Tries);
-      Serial.print("|");
-      Serial.println(F(""));
+      message_out.println(F(""));
+      message_out.print(F("|Wire Refind Atempts:"));
+      message_out.print(Wire_Refind_Tries);
+      message_out.print("|");
+      message_out.println(F(""));
       if (Wire_Refind_Tries > 4) {
         Motor_Action_Stop_Motors(); 
         lcd.clear();
         Mower_Error = 1;
-        Serial.println(F(""));
-        Serial.println("Max refind tries exceeded - Parking the Mower");
+        message_out.println(F(""));
+        message_out.println("Max refind tries exceeded - Parking the Mower");
         delay(2000);
       
       }
@@ -118,22 +118,22 @@ void TestforBoundaryWire()  {
       
       // If the mower is docked or Parked then the TFT screen just shows a wire off warning
       if ( (Wire_Off > 5) && (Mower_Docked == 0) && (Mower_Parked == 0) ) {
-        Serial.println(F("Wire Test Failed - Hibernating Mower"));
+        message_out.println(F("Wire Test Failed - Hibernating Mower"));
         Manouver_Hibernate_Mower();      // Send the mower to sleep
         }
       } 
 
-    Serial.print(F("|Wire"));
-    Serial.print(F(":"));
-    if (Wire_Detected == 0) Serial.print(F("OFF|"));
-    if (Wire_Detected == 1) Serial.print(F("ON|"));
+    message_out.print(F("|Wire"));
+    message_out.print(F(":"));
+    if (Wire_Detected == 0) message_out.print(F("OFF|"));
+    if (Wire_Detected == 1) message_out.print(F("ON|"));
     }
 
   // If the wire is in test mode
   if (Perimeter_Wire_Enabled == 0) {   
-    Serial.print(F("Wire"));
-    Serial.print(F(":"));                                            
-    Serial.print(F("DISABLED|"));
+    message_out.print(F("Wire"));
+    message_out.print(F(":"));                                            
+    message_out.print(F("DISABLED|"));
     Wire_Detected = 1;
 
   }
@@ -153,13 +153,13 @@ void UpdateWireSensor()   {
 
 void PrintBoundaryWireStatus() {
 
-  Serial.print(F("|IN/OUT:"));
-  Serial.print((perimeter.isInside(0)));
-  Serial.print(F("|Mag:"));
-  Serial.print((int)perimeter.getMagnitude(0));
-  Serial.print(F("|Smag:"));
-  Serial.print((int)perimeter.getSmoothMagnitude(0));
-  Serial.print(F("|Q:"));
-  Serial.print((perimeter.getFilterQuality(0)));
-  Serial.print(F("|"));
+  message_out.print(F("|IN/OUT:"));
+  message_out.print((perimeter.isInside(0)));
+  message_out.print(F("|Mag:"));
+  message_out.print((int)perimeter.getMagnitude(0));
+  message_out.print(F("|Smag:"));
+  message_out.print((int)perimeter.getSmoothMagnitude(0));
+  message_out.print(F("|Q:"));
+  message_out.print((perimeter.getFilterQuality(0)));
+  message_out.print(F("|"));
   }

@@ -25,20 +25,20 @@ void Get_GYRO_Reading() {
         
          Heading = atan2(yAng, xAng);
                 
-         Serial.print("|GX=");
-         Serial.print(GYRO_Angle_X);
-         Serial.print("|GY=");
-         Serial.print(GYRO_Angle_Y);             
-         Serial.print("|GZ=");
-         Serial.print(GYRO_Angle_Z);
+         message_out.print("|GX=");
+         message_out.print(GYRO_Angle_X);
+         message_out.print("|GY=");
+         message_out.print(GYRO_Angle_Y);             
+         message_out.print("|GZ=");
+         message_out.print(GYRO_Angle_Z);
          //delay(100);
          } 
 
 void Print_GYRO_Reading() {              
-         Serial.print(" | tmp = ");    Serial.print(Temp/340.00+36.53);
-         Serial.print(" | Gyro X = "); Serial.print(convert_int16_to_str(GyX));
-         Serial.print(" | Gyro Y = "); Serial.print(convert_int16_to_str(GyY));
-         Serial.print(" | Gyro Z = "); Serial.println(convert_int16_to_str(GyZ));
+         message_out.print(" | tmp = ");    message_out.print(Temp/340.00+36.53);
+         message_out.print(" | Gyro X = "); message_out.print(convert_int16_to_str(GyX));
+         message_out.print(" | Gyro Y = "); message_out.print(convert_int16_to_str(GyY));
+         message_out.print(" | Gyro Z = "); message_out.println(convert_int16_to_str(GyZ));
          delay(100);
          } 
 
@@ -54,7 +54,7 @@ void Calculate_GYRO_Wheel_Compensation() {
   // Mower is tipping to the Left
   // Left Wheel needs to be at full power and less power to the right wheel to steer right.
   if (GYRO_Angle_X > 180) {                                             // Steer Right
-     Serial.print(F("GR|"));
+     message_out.print(F("GR|"));
     
     
     // With no adjustment of wheel speed according to MAG Level    
@@ -73,7 +73,7 @@ void Calculate_GYRO_Wheel_Compensation() {
   // Mower is tipping to the Right  
   // Right Wheel needs to be at full power and less power to the left wheel to steer left.
   if (GYRO_Angle_X <= 180) {      
-    Serial.print(F("GL|"));
+    message_out.print(F("GL|"));
 
     // With no adjustment of wheel speed according to MAG Level
     if (MAG_Speed_Adjustment == 0) {

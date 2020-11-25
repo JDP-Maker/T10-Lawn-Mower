@@ -40,7 +40,7 @@ void Pattern_Mow_Spirals() {
       if (Spiral_Mow < 3) {
         
       
-      Serial.print(F("Wheel:CIRCLE|"));
+      message_out.print(F("Wheel:CIRCLE|"));
       lcd.setCursor(9,1);
       if (Spiral_Mow == 1) lcd.print("R");
       if (Spiral_Mow == 2) lcd.print("L");
@@ -145,8 +145,8 @@ void Pattern_Mow_Parallel() {
           Calculate_Compass_Wheel_Compensation();
           Motor_Action_Dynamic_PWM_Steering();              // Removes the full speed function if the mower is trying to hold to the compass heading.
           Print_LCD_Parallel_Mowing();
-          Serial.print(F("C-Lock:ON_"));
-          Serial.print("|");
+          message_out.print(F("C-Lock:ON_"));
+          message_out.print("|");
           }
         }
      }
@@ -155,7 +155,7 @@ void Pattern_Mow_Parallel() {
     // No use of compass assist
     if (Parallel_Compass_Assist == 0) {
         Motor_Action_Go_Mowing_Speed();
-        Serial.println("Compass not activated in the settings");
+        message_out.println("Compass not activated in the settings");
        }
     }
 

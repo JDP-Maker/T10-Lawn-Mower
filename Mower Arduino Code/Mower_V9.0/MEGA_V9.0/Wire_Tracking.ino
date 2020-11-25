@@ -14,19 +14,19 @@ void PrintWirePosition() {
 
 
   for (int i = PrintInMax; i <= PrintOutMax; i++) {
-    if (i == PrintInMax) Serial.print(F("|"));
-    if (i == PrintInMid) Serial.print(F("|"));
-    if (i == PrintInMin) Serial.print(F("|"));
-    if (i == PrintOutMin) Serial.print(F("|"));
-    if (i == PrintOutMid) Serial.print(F("|"));
-    if (i == PrintOutMax) Serial.print(F("|"));
-    if (i == PrintMAG_Now) Serial.print(F("X"));     //maybe change to MAG_Lasr...
-    if (i == 0) Serial.print(F("0"));
+    if (i == PrintInMax) message_out.print(F("|"));
+    if (i == PrintInMid) message_out.print(F("|"));
+    if (i == PrintInMin) message_out.print(F("|"));
+    if (i == PrintOutMin) message_out.print(F("|"));
+    if (i == PrintOutMid) message_out.print(F("|"));
+    if (i == PrintOutMax) message_out.print(F("|"));
+    if (i == PrintMAG_Now) message_out.print(F("X"));     //maybe change to MAG_Lasr...
+    if (i == 0) message_out.print(F("0"));
 
-    else Serial.print(F("."));
+    else message_out.print(F("."));
 
   }
-  Serial.print(F("|MAG_Now:"));  Serial.print(MAG_Now); Serial.print(F("|"));
+  message_out.print(F("|MAG_Now:"));  message_out.print(MAG_Now); message_out.print(F("|"));
 }
 
 
@@ -50,11 +50,11 @@ void Track_Wire_From_Dock_to_Zone_X() {
   Tracking_Turn_Left = 0;
   
   //uses the PID settings in the setup
-  Serial.print(F("P = "));
-  Serial.print(P);
-  Serial.print(F(" / D = "));
-  Serial.print(D);
-  Serial.println(F(""));
+  message_out.print(F("P = "));
+  message_out.print(P);
+  message_out.print(F(" / D = "));
+  message_out.print(D);
+  message_out.println(F(""));
   Tracking_Wire = 1;
   Mower_Running = 0;
   MAG_Now = 0;                                                              // Reset Values
@@ -103,7 +103,7 @@ void Track_Wire_From_Dock_to_Zone_X() {
           }
         
         Motor_Action_Dynamic_PWM_Steering();                                      // Carries out the wheel PWM changes for steering on the wire
-        Serial.print(F(" Turn Right "));
+        message_out.print(F(" Turn Right "));
         Tracking_Turn_Left = 0;                                             // Failsafe if the mower looses the wire.  If the mower is commanded to turn left or right
         Tracking_Turn_Right = Tracking_Turn_Right + 1;                      // too many times it is assumed that the mower is spinning and cant get back on the wire.
         if (Tracking_Turn_Right > Max_Tracking_Turn_Right) {                // if this is detected then a function is ran to find the wire again.
@@ -139,7 +139,7 @@ void Track_Wire_From_Dock_to_Zone_X() {
           }
         
         Motor_Action_Dynamic_PWM_Steering();
-        Serial.print(F(" Turn Left "));
+        message_out.print(F(" Turn Left "));
         Tracking_Turn_Right = 0;
         Tracking_Turn_Left = Tracking_Turn_Left + 1;
         if (Tracking_Turn_Left > Max_Tracking_Turn_Left) {
@@ -152,8 +152,8 @@ void Track_Wire_From_Dock_to_Zone_X() {
           Tracking_Restart_Blocked_Path();
         }
       }
-      Serial.print(F(" : MAG_Error="));
-      Serial.println(MAG_Error);
+      message_out.print(F(" : MAG_Error="));
+      message_out.println(MAG_Error);
       Dock_Cycles = Dock_Cycles + 1;
       Loop_Cycle_Mowing = I;
       if (Dock_Cycles > 10) {
@@ -193,7 +193,7 @@ if (MAG_Error > 0) {                                      // if MAG_Error > 0 th
           }
         
         Motor_Action_Dynamic_PWM_Steering();                          // send the PWM values to the motor driver.
-        Serial.print(F(" Turn Left "));
+        message_out.print(F(" Turn Left "));
         Tracking_Turn_Right = 0;
         Tracking_Turn_Left = Tracking_Turn_Left + 1;
         if (Tracking_Turn_Left > Max_Tracking_Turn_Left) {
@@ -222,7 +222,7 @@ if (MAG_Error > 0) {                                      // if MAG_Error > 0 th
         }
 
         Motor_Action_Dynamic_PWM_Steering();
-        Serial.print(F(" Turn Right "));
+        message_out.print(F(" Turn Right "));
         Tracking_Turn_Left = 0;
         Tracking_Turn_Right = Tracking_Turn_Right + 1;
         if (Tracking_Turn_Right > Max_Tracking_Turn_Right) {
@@ -230,8 +230,8 @@ if (MAG_Error > 0) {                                      // if MAG_Error > 0 th
           Tracking_Restart_Blocked_Path();
           } 
     }
-      Serial.print(F(" : MAG_Error="));
-      Serial.println(MAG_Error);
+      message_out.print(F(" : MAG_Error="));
+      message_out.println(MAG_Error);
       Dock_Cycles = Dock_Cycles + 1;
       Loop_Cycle_Mowing = I;
       if (Dock_Cycles > 10) {
@@ -271,12 +271,12 @@ void Track_Perimeter_Wire_To_Dock()  {
   Check_if_Docked();
   
 
-  Serial.println(F(" Tracking the wire to the Garage: "));                     // Prints the PID values used.
-  Serial.print(F("P = "));
-  Serial.print(P);
-  Serial.print(F(" / D = "));
-  Serial.print(D);
-  Serial.println(F(""));
+  message_out.println(F(" Tracking the wire to the Garage: "));                     // Prints the PID values used.
+  message_out.print(F("P = "));
+  message_out.print(P);
+  message_out.print(F(" / D = "));
+  message_out.print(D);
+  message_out.println(F(""));
 
   Tracking_Wire = 1;
   Loop_Cycle_Mowing = 0;
@@ -289,7 +289,7 @@ void Track_Perimeter_Wire_To_Dock()  {
   int Dock_Cycles = 0;
   delay(5);
   if (CCW_Tracking_To_Charge == 1)  {                                                   // Mower tracks the wire in a Counter Clockwise Direction
-    Serial.println(F("TRACKING COUNTER-CLOCKWISE"));
+    message_out.println(F("TRACKING COUNTER-CLOCKWISE"));
     while ((Mower_Docked == 0) && (Mower_Parked == 0)) {
       lcd.clear();
       lcd.print("Tracking CCW to");
@@ -325,7 +325,7 @@ void Track_Perimeter_Wire_To_Dock()  {
           }
        
         Motor_Action_Dynamic_PWM_Steering();                                          // Carries out the wheel PWM changes for steering on the wire
-        Serial.print(F(" Turn Right "));
+        message_out.print(F(" Turn Right "));
         Tracking_Turn_Left = 0;                                                 // Failsafe if the mower looses the wire.  If the mower is commanded to turn left or right
         Tracking_Turn_Right = Tracking_Turn_Right + 1;                          // too many times it is assumed that the mower is spinning and cant get back on the wire.
         if (Tracking_Turn_Right > Max_Tracking_Turn_Right) {                    // if this is detected then a function is ran to find the wire again.
@@ -355,7 +355,7 @@ void Track_Perimeter_Wire_To_Dock()  {
           }
           
         Motor_Action_Dynamic_PWM_Steering();
-        Serial.print(F(" Turn Left "));
+        message_out.print(F(" Turn Left "));
         Tracking_Turn_Right = 0;
         Tracking_Turn_Left = Tracking_Turn_Left + 1;
         if (Tracking_Turn_Left > Max_Tracking_Turn_Left) {
@@ -363,8 +363,8 @@ void Track_Perimeter_Wire_To_Dock()  {
           if (Mower_Parked == 1) Mower_Docked = 1;
         }
       }
-      Serial.print(F(" : MAG_Error="));
-      Serial.print(MAG_Error);
+      message_out.print(F(" : MAG_Error="));
+      message_out.print(MAG_Error);
       Read_Serial1_Nano();
       Check_if_Charging();
       Check_if_Docked();
@@ -381,7 +381,7 @@ void Track_Perimeter_Wire_To_Dock()  {
   }
 
   if (CW_Tracking_To_Charge == 1)  {                             // Mower tracks the wire in a Counter Clockwise Direction
-    Serial.println(F("TRACKING ---  CLOCKWISE"));               // With the same functions as above
+    message_out.println(F("TRACKING ---  CLOCKWISE"));               // With the same functions as above
     while ((Mower_Docked == 0) && (Mower_Parked == 0)) {
       delay(5);
       lcd.clear();
@@ -420,7 +420,7 @@ void Track_Perimeter_Wire_To_Dock()  {
           }
         
         Motor_Action_Dynamic_PWM_Steering();                          // send the PWM values to the motor driver.
-        Serial.print(F(" Turn Left "));
+        message_out.print(F(" Turn Left "));
         Tracking_Turn_Right = 0;
         Tracking_Turn_Left = Tracking_Turn_Left + 1;
         if (Tracking_Turn_Left > Max_Tracking_Turn_Left) {
@@ -448,7 +448,7 @@ void Track_Perimeter_Wire_To_Dock()  {
         }
 
         Motor_Action_Dynamic_PWM_Steering();
-        Serial.print(F(" Turn Right "));
+        message_out.print(F(" Turn Right "));
         Tracking_Turn_Left = 0;
         Tracking_Turn_Right = Tracking_Turn_Right + 1;
         if (Tracking_Turn_Right > Max_Tracking_Turn_Right) {
@@ -456,8 +456,8 @@ void Track_Perimeter_Wire_To_Dock()  {
           }
 
       }
-      Serial.print(F(" : MAG_Error="));
-      Serial.print(MAG_Error);
+      message_out.print(F(" : MAG_Error="));
+      message_out.print(MAG_Error);
       Read_Serial1_Nano();
       Check_if_Charging();
       Check_if_Docked();
@@ -482,9 +482,9 @@ void Track_Perimeter_Wire_To_Dock()  {
 void Tracking_Restart_Blocked_Path() {
   if (Mower_Docked != 1) {  
       Motor_Action_Stop_Motors();
-      Serial.println(F(""));
-      Serial.println(F("Possible Blocked Path - Trying to Avoid"));
-      Serial.println(F(""));
+      message_out.println(F(""));
+      message_out.println(F("Possible Blocked Path - Trying to Avoid"));
+      message_out.println(F(""));
       Mower_Running = 1;
       Tracking_Wire = 1;
       if (WIFI_Enabled == 1) Get_WIFI_Commands();                                   // TX and RX data from NodeMCU

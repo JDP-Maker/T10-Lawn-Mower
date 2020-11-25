@@ -27,8 +27,8 @@ void Print_Membrane_Switch_Input_Sensors() {
      Menu_Mode_Selection = 0;
      Menu_View = 0;
 
-      Serial.println();
-      Serial.println(F("Sensors Menu Activated"));
+      message_out.println();
+      message_out.println(F("Sensors Menu Activated"));
       Menu_Complete_Sensors = false;                                // Menu complete will return to the normal loop
       lcd.clear();
       delay(5);
@@ -46,13 +46,13 @@ void Print_Membrane_Switch_Input_Sensors() {
              
         if(!Start_Key_X){
           Menu_Complete_Sensors = true;
-          Serial.println(F("Start key is pressed"));
+          message_out.println(F("Start key is pressed"));
           Activate_Menu_Option_Sensors();
           lcd.clear();
           
           }
         if(!Plus_Key_X) {
-          Serial.println(F("+ key is pressed"));
+          message_out.println(F("+ key is pressed"));
           Menu_View = Menu_View - 1;
           Run_Menu_Order_Sensors();
           }
@@ -61,7 +61,7 @@ void Print_Membrane_Switch_Input_Sensors() {
           Run_Menu_Order_Sensors();
         }
         if(!Stop_Key_X){
-          Serial.println(F("Stop key is pressed"));
+          message_out.println(F("Stop key is pressed"));
           Menu_Complete_Sensors = true;
           lcd.clear();
           lcd.setCursor(0,0);
@@ -80,7 +80,7 @@ void Print_Membrane_Switch_Input_Sensors() {
  void Run_Menu_Order_Sensors() {
      if (Menu_View > Max_Options_Sensors) Menu_View = Menu_View -1;
      if (Menu_View < 0) Menu_View = Menu_View + 1;      
-     Serial.print(F("- key is pressed "));
+     message_out.print(F("- key is pressed "));
      lcd.clear();
      lcd.setCursor(1,0);
      Print_LCD_Menu_Sensors(Menu_View);
@@ -89,10 +89,10 @@ void Print_Membrane_Switch_Input_Sensors() {
      lcd.setCursor(0,0);
      lcd.print(">");
      Menu_Mode_Selection = Menu_View;
-     Serial.print(F("Menu View : "));
-     Serial.print(Menu_View);
-     Serial.print(F("| Menu Selection"));
-     Serial.println(Menu_Mode_Selection);
+     message_out.print(F("Menu View : "));
+     message_out.print(Menu_View);
+     message_out.print(F("| Menu Selection"));
+     message_out.println(Menu_Mode_Selection);
      delay(100);
      }
 
@@ -301,15 +301,15 @@ void Activate_Menu_Option_Sensors() {
        lcd.setCursor(0,1);
        lcd.print(F("cm = "));
        lcd.print(maxdistancesonar);
-       Serial.print(F("Sonar Distnace = :"));
-       Serial.println(maxdistancesonar);
+       message_out.print(F("Sonar Distnace = :"));
+       message_out.println(maxdistancesonar);
        Menu_Complete_Sensors = false;
        while (Menu_Complete_Sensors == false) {
              Read_Membrane_Keys();
              delay(100);
              //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-             Serial.println(F("Settings Saved"));
+             message_out.println(F("Settings Saved"));
              Menu_Complete_Sensors = true;
              lcd.clear();
              lcd.setCursor(0,0);
@@ -332,8 +332,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                lcd.print(F("cm = "));
                lcd.print(maxdistancesonar);
-               Serial.print(F("Sonar Distnace = :"));
-               Serial.println(maxdistancesonar);
+               message_out.print(F("Sonar Distnace = :"));
+               message_out.println(maxdistancesonar);
                }
              if (!Minus_Key_X) {
                maxdistancesonar = maxdistancesonar - 1;
@@ -344,8 +344,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                lcd.print(F("cm = "));
                lcd.print(maxdistancesonar);
-               Serial.print(F("Sonar Distnace = :"));
-               Serial.println(maxdistancesonar);
+               message_out.print(F("Sonar Distnace = :"));
+               message_out.println(maxdistancesonar);
                }
              
              }
@@ -363,15 +363,15 @@ void Activate_Menu_Option_Sensors() {
        lcd.setCursor(0,1);
        lcd.print(F("Hits = "));
        lcd.print(Max_Sonar_Hit);
-       Serial.print(F("Sonar Sensitivity = :"));
-       Serial.println(Max_Sonar_Hit);
+       message_out.print(F("Sonar Sensitivity = :"));
+       message_out.println(Max_Sonar_Hit);
        Menu_Complete_Sensors = false;
        while (Menu_Complete_Sensors == false) {
              Read_Membrane_Keys();
              delay(100);
              //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-             Serial.println(F("Settings Saved"));
+             message_out.println(F("Settings Saved"));
              Menu_Complete_Sensors = true;
              lcd.clear();
              lcd.setCursor(0,0);
@@ -394,8 +394,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                lcd.print(F("Hits = "));
                lcd.print(Max_Sonar_Hit);
-               Serial.print(F("Sonar sensitivity = :"));
-               Serial.println(Max_Sonar_Hit);
+               message_out.print(F("Sonar sensitivity = :"));
+               message_out.println(Max_Sonar_Hit);
                }
              if (!Minus_Key_X) {
                Max_Sonar_Hit = Max_Sonar_Hit - 1;
@@ -406,8 +406,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                lcd.print(F("Hits = "));
                lcd.print(Max_Sonar_Hit);
-               Serial.print(F("Sonar sensitivity = :"));
-               Serial.println(Max_Sonar_Hit);
+               message_out.print(F("Sonar sensitivity = :"));
+               message_out.println(Max_Sonar_Hit);
                }
              
              }
@@ -424,15 +424,15 @@ void Activate_Menu_Option_Sensors() {
        lcd.setCursor(0,1);
        lcd.print("V = ");
        lcd.print(Battery_Min);
-       Serial.print(F("Battery Minimum Volt = :"));
-       Serial.println(Battery_Min);
+       message_out.print(F("Battery Minimum Volt = :"));
+       message_out.println(Battery_Min);
        Menu_Complete_Sensors = false;
        while (Menu_Complete_Sensors == false) {
              Read_Membrane_Keys();
              delay(100);
              //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-             Serial.println(F("Settings Saved"));
+             message_out.println(F("Settings Saved"));
              Menu_Complete_Sensors = true;
              lcd.clear();
              lcd.setCursor(0,0);
@@ -454,8 +454,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                lcd.print("V = ");
                lcd.print(Battery_Min);
-               Serial.print(F("Minimum Battery Voltage = :"));
-               Serial.println(Battery_Min);
+               message_out.print(F("Minimum Battery Voltage = :"));
+               message_out.println(Battery_Min);
                }
              if (!Minus_Key_X) {
                Battery_Min = Battery_Min - 0.1;
@@ -465,8 +465,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                lcd.print("V = ");
                lcd.print(Battery_Min);
-               Serial.print(F("Minimum Battery Voltage = :"));
-               Serial.println(Battery_Min);
+               message_out.print(F("Minimum Battery Voltage = :"));
+               message_out.println(Battery_Min);
                }
              
              }
@@ -483,15 +483,15 @@ void Activate_Menu_Option_Sensors() {
        lcd.setCursor(0,1);
        lcd.print(F("Hits = "));
        lcd.print(Low_Battery_Instances_Chg);
-       Serial.print(F("Batt Sensitivity = :"));
-       Serial.println(Low_Battery_Instances_Chg);
+       message_out.print(F("Batt Sensitivity = :"));
+       message_out.println(Low_Battery_Instances_Chg);
        Menu_Complete_Sensors = false;
        while (Menu_Complete_Sensors == false) {
              Read_Membrane_Keys();
              delay(100);
              //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-             Serial.println(F("Settings Saved"));
+             message_out.println(F("Settings Saved"));
              Menu_Complete_Sensors = true;
              lcd.clear();
              lcd.setCursor(0,0);
@@ -514,8 +514,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                lcd.print(F("Hits = "));
                lcd.print(Low_Battery_Instances_Chg);
-               Serial.print(F("Battery sensitivity = :"));
-               Serial.println(Low_Battery_Instances_Chg);
+               message_out.print(F("Battery sensitivity = :"));
+               message_out.println(Low_Battery_Instances_Chg);
                }
              if (!Minus_Key_X) {
                Low_Battery_Instances_Chg = Low_Battery_Instances_Chg - 1;
@@ -526,8 +526,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                lcd.print(F("Hits = "));
                lcd.print(Low_Battery_Instances_Chg);
-               Serial.print(F("Battery sensitivity = :"));
-               Serial.println(Low_Battery_Instances_Chg);
+               message_out.print(F("Battery sensitivity = :"));
+               message_out.println(Low_Battery_Instances_Chg);
                }
              
              }
@@ -556,7 +556,7 @@ void Activate_Menu_Option_Sensors() {
           delay(100);
           //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-               Serial.println(F("Wire Sensor ON/OFF Settings Saved"));
+               message_out.println(F("Wire Sensor ON/OFF Settings Saved"));
                Menu_Complete_Sensors = true;
                lcd.clear();
                lcd.setCursor(0,0);
@@ -565,8 +565,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Saved: "));
                if (Perimeter_Wire_Enabled == 1) lcd.print(F("ON "));
                if (Perimeter_Wire_Enabled == 0) lcd.print(F("OFF"));
-               Serial.print(F("Sensor:"));
-               Serial.println(Perimeter_Wire_Enabled);
+               message_out.print(F("Sensor:"));
+               message_out.println(Perimeter_Wire_Enabled);
                delay(2000);
                lcd.clear();          
                EEPROM.write(67 , 1);
@@ -579,8 +579,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Status : "));
                Perimeter_Wire_Enabled = 1;
                lcd.print(F("ON "));
-               Serial.print(F("Sensor:"));
-               Serial.println(Perimeter_Wire_Enabled);
+               message_out.print(F("Sensor:"));
+               message_out.println(Perimeter_Wire_Enabled);
                delay(100);
                }
              if (!Minus_Key_X) {
@@ -588,8 +588,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Status : "));
                Perimeter_Wire_Enabled = 0;
                lcd.print(F("OFF"));
-               Serial.print(F("Sensor:"));
-               Serial.println(Perimeter_Wire_Enabled);
+               message_out.print(F("Sensor:"));
+               message_out.println(Perimeter_Wire_Enabled);
                delay(100);
                }
      }
@@ -616,7 +616,7 @@ void Activate_Menu_Option_Sensors() {
           delay(100);
           //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-               Serial.println(F("Rain Sensor ON/OFF Settings Saved"));
+               message_out.println(F("Rain Sensor ON/OFF Settings Saved"));
                Menu_Complete_Sensors = true;
                lcd.clear();
                lcd.setCursor(0,0);
@@ -625,8 +625,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Saved: "));
                if (Rain_Sensor_Installed == 1) lcd.print(F("ON "));
                if (Rain_Sensor_Installed == 0) lcd.print(F("OFF"));
-               Serial.print(F("Sensor:"));
-               Serial.println(Rain_Sensor_Installed);
+               message_out.print(F("Sensor:"));
+               message_out.println(Rain_Sensor_Installed);
                delay(2000);
                lcd.clear();          
                EEPROM.write(77 , 1);
@@ -639,8 +639,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Status : "));
                Rain_Sensor_Installed = 1;
                lcd.print(F("ON "));
-               Serial.print(F("Sensor:"));
-               Serial.println(Rain_Sensor_Installed);
+               message_out.print(F("Sensor:"));
+               message_out.println(Rain_Sensor_Installed);
                delay(100);
                }
              if (!Minus_Key_X) {
@@ -648,8 +648,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Status : "));
                Rain_Sensor_Installed = 0;
                lcd.print(F("OFF"));
-               Serial.print(F("Sensor:"));
-               Serial.println(Rain_Sensor_Installed);
+               message_out.print(F("Sensor:"));
+               message_out.println(Rain_Sensor_Installed);
                delay(100);
                }
      }
@@ -665,15 +665,15 @@ void Activate_Menu_Option_Sensors() {
        lcd.setCursor(0,1);
        lcd.print(F("Hits = "));
        lcd.print(Rain_Total_Hits_Go_Home);
-       Serial.print(F("Rain Sensitivity = :"));
-       Serial.println(Rain_Total_Hits_Go_Home);
+       message_out.print(F("Rain Sensitivity = :"));
+       message_out.println(Rain_Total_Hits_Go_Home);
        Menu_Complete_Sensors = false;
        while (Menu_Complete_Sensors == false) {
              Read_Membrane_Keys();
              delay(100);
              //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-             Serial.println(F("Settings Saved"));
+             message_out.println(F("Settings Saved"));
              Menu_Complete_Sensors = true;
              lcd.clear();
              lcd.setCursor(0,0);
@@ -696,8 +696,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                lcd.print(F("Hits = "));
                lcd.print(Rain_Total_Hits_Go_Home);
-               Serial.print(F("Rain sensitivity = :"));
-               Serial.println(Rain_Total_Hits_Go_Home);
+               message_out.print(F("Rain sensitivity = :"));
+               message_out.println(Rain_Total_Hits_Go_Home);
                }
              if (!Minus_Key_X) {
                Rain_Total_Hits_Go_Home = Rain_Total_Hits_Go_Home - 1;
@@ -708,8 +708,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                lcd.print(F("Hits = "));
                lcd.print(Rain_Total_Hits_Go_Home);
-               Serial.print(F("Rain sensitivity = :"));
-               Serial.println(Rain_Total_Hits_Go_Home);
+               message_out.print(F("Rain sensitivity = :"));
+               message_out.println(Rain_Total_Hits_Go_Home);
                }
              
              }
@@ -737,7 +737,7 @@ void Activate_Menu_Option_Sensors() {
           delay(100);
           //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-               Serial.println(F("Rain Sensor ON/OFF Settings Saved"));
+               message_out.println(F("Rain Sensor ON/OFF Settings Saved"));
                Menu_Complete_Sensors = true;
                lcd.clear();
                lcd.setCursor(0,0);
@@ -746,8 +746,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Saved: "));
                if (WIFI_Enabled == 1) lcd.print(F("Enabled "));
                if (WIFI_Enabled == 0) lcd.print(F("Disabled"));
-               Serial.print(F("Status:"));
-               Serial.println(WIFI_Enabled);
+               message_out.print(F("Status:"));
+               message_out.println(WIFI_Enabled);
                delay(2000);
                lcd.clear();          
                EEPROM.write(81 , 1);
@@ -760,8 +760,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Status: "));
                WIFI_Enabled = 1;
                lcd.print(F("Enabled "));
-               Serial.print(F("Status:"));
-               Serial.println(WIFI_Enabled);
+               message_out.print(F("Status:"));
+               message_out.println(WIFI_Enabled);
                delay(100);
                }
              if (!Minus_Key_X) {
@@ -769,8 +769,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Status: "));
                WIFI_Enabled = 0;
                lcd.print(F("Disabled"));
-               Serial.print(F("Status:"));
-               Serial.println(WIFI_Enabled);
+               message_out.print(F("Status:"));
+               message_out.println(WIFI_Enabled);
                delay(100);
                }
      }
@@ -797,7 +797,7 @@ void Activate_Menu_Option_Sensors() {
           delay(100);
           //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-               Serial.println(F("Wire Sensor ON/OFF Settings Saved"));
+               message_out.println(F("Wire Sensor ON/OFF Settings Saved"));
                Menu_Complete_Sensors = true;
                lcd.clear();
                lcd.setCursor(0,0);
@@ -809,8 +809,8 @@ void Activate_Menu_Option_Sensors() {
                   Setup_Bumper_Bar();
                   }
                if (Bumper_Activate_Frnt == 0) lcd.print(F("OFF"));
-               Serial.print(F("Sensor:"));
-               Serial.println(Bumper_Activate_Frnt);
+               message_out.print(F("Sensor:"));
+               message_out.println(Bumper_Activate_Frnt);
                delay(2000);
                lcd.clear();          
                EEPROM.write(90 , 1);
@@ -823,8 +823,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Status : "));
                Bumper_Activate_Frnt = 1;
                lcd.print(F("ON "));
-               Serial.print(F("Sensor:"));
-               Serial.println(Bumper_Activate_Frnt);
+               message_out.print(F("Sensor:"));
+               message_out.println(Bumper_Activate_Frnt);
                delay(100);
                }
              if (!Minus_Key_X) {
@@ -832,8 +832,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print(F("Status : "));
                Bumper_Activate_Frnt = 0;
                lcd.print(F("OFF"));
-               Serial.print(F("Sensor:"));
-               Serial.println(Bumper_Activate_Frnt);
+               message_out.print(F("Sensor:"));
+               message_out.println(Bumper_Activate_Frnt);
                delay(100);
                }
      }
@@ -864,7 +864,7 @@ void Activate_Menu_Option_Sensors() {
           delay(100);
           //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-               Serial.println(F("Tip Settings Saved"));
+               message_out.println(F("Tip Settings Saved"));
                Menu_Complete = true;
                lcd.clear();
                lcd.setCursor(0,0);
@@ -872,8 +872,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                if (Angle_Sensor_Enabled == 0) lcd.print("OFF");
                if (Angle_Sensor_Enabled == 1) lcd.print("ON"); 
-               Serial.print(F("Angle Sensor ON/OFF: "));
-               Serial.println(Angle_Sensor_Enabled);
+               message_out.print(F("Angle Sensor ON/OFF: "));
+               message_out.println(Angle_Sensor_Enabled);
                delay(2000);
                lcd.clear();          
                EEPROM.write(29 , 1);
@@ -886,8 +886,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print("Status : ");
                Angle_Sensor_Enabled = 1;
                lcd.print("ON ");
-               Serial.print(F("Angle Enabled:"));
-               Serial.println(Angle_Sensor_Enabled);
+               message_out.print(F("Angle Enabled:"));
+               message_out.println(Angle_Sensor_Enabled);
                delay(100);
                }
              if (!Minus_Key_X) {
@@ -895,8 +895,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print("Status : ");
                Angle_Sensor_Enabled = 0;
                lcd.print("OFF");
-               Serial.print(F("Angle Enabled:"));
-               Serial.println(Angle_Sensor_Enabled);
+               message_out.print(F("Angle Enabled:"));
+               message_out.println(Angle_Sensor_Enabled);
                delay(100);
                }
      }
@@ -921,7 +921,7 @@ void Activate_Menu_Option_Sensors() {
           delay(100);
           //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-               Serial.println(F("Tip Settings Saved"));
+               message_out.println(F("Tip Settings Saved"));
                Menu_Complete = true;
                lcd.clear();
                lcd.setCursor(0,0);
@@ -929,8 +929,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.setCursor(0,1);
                if (Tip_Over_Sensor_Enabled == 0) lcd.print("OFF");
                if (Tip_Over_Sensor_Enabled == 1) lcd.print("ON"); 
-               Serial.print(F("Tip Over Sensor:"));
-               Serial.println(Tip_Over_Sensor_Enabled);
+               message_out.print(F("Tip Over Sensor:"));
+               message_out.println(Tip_Over_Sensor_Enabled);
                delay(2000);
                lcd.clear();          
                EEPROM.write(92 , 1);
@@ -943,8 +943,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print("Status : ");
                Tip_Over_Sensor_Enabled = 1;
                lcd.print("ON ");
-               Serial.print(F("Tip Over Enabled:"));
-               Serial.println(Tip_Over_Sensor_Enabled);
+               message_out.print(F("Tip Over Enabled:"));
+               message_out.println(Tip_Over_Sensor_Enabled);
                delay(100);
                }
              if (!Minus_Key_X) {
@@ -952,8 +952,8 @@ void Activate_Menu_Option_Sensors() {
                lcd.print("Status : ");
                Tip_Over_Sensor_Enabled = 0;
                lcd.print("OFF");
-               Serial.print(F("Tip Over Enabled:"));
-               Serial.println(Tip_Over_Sensor_Enabled);
+               message_out.print(F("Tip Over Enabled:"));
+               message_out.println(Tip_Over_Sensor_Enabled);
                delay(100);
                }
      }

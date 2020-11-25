@@ -20,8 +20,8 @@ void Print_Membrane_Switch_Input_Tracking() {
      Menu_Mode_Selection = 0;
      Menu_View = 0;
 
-      Serial.println();
-      Serial.println(F("Tracking Menu Activated"));
+      message_out.println();
+      message_out.println(F("Tracking Menu Activated"));
       Menu_Complete_Tracking = false;                                // Menu complete will return to the normal loop
       lcd.clear();
       delay(5);
@@ -39,13 +39,13 @@ void Print_Membrane_Switch_Input_Tracking() {
              
         if(!Start_Key_X){
           Menu_Complete_Tracking = true;
-          Serial.println(F("Start key is pressed"));
+          message_out.println(F("Start key is pressed"));
           Activate_Menu_Option_Tracking();
           lcd.clear();
           
           }
         if(!Plus_Key_X) {
-          Serial.println(F("+ key is pressed"));
+          message_out.println(F("+ key is pressed"));
           Menu_View = Menu_View - 1;
           Run_Menu_Order_Tracking();
           }
@@ -54,7 +54,7 @@ void Print_Membrane_Switch_Input_Tracking() {
           Run_Menu_Order_Tracking();
         }
         if(!Stop_Key_X){
-          Serial.println(F("Stop key is pressed"));
+          message_out.println(F("Stop key is pressed"));
           Menu_Complete_Tracking = true;
           lcd.clear();
           lcd.setCursor(0,0);
@@ -74,7 +74,7 @@ void Print_Membrane_Switch_Input_Tracking() {
  void Run_Menu_Order_Tracking() {
      if (Menu_View > Max_Options_Tracking) Menu_View = Menu_View -1;
      if (Menu_View < 0) Menu_View = Menu_View + 1;      
-     Serial.print(F("- key is pressed "));
+     message_out.print(F("- key is pressed "));
      lcd.clear();
      lcd.setCursor(1,0);
      Print_LCD_Menu_Tracking(Menu_View);
@@ -83,10 +83,10 @@ void Print_Membrane_Switch_Input_Tracking() {
      lcd.setCursor(0,0);
      lcd.print(">");
      Menu_Mode_Selection = Menu_View;
-     Serial.print(F("Menu View : "));
-     Serial.print(Menu_View);
-     Serial.print(F("| Menu Selection"));
-     Serial.println(Menu_Mode_Selection);
+     message_out.print(F("Menu View : "));
+     message_out.print(Menu_View);
+     message_out.print(F("| Menu Selection"));
+     message_out.println(Menu_Mode_Selection);
      delay(100);
      }
 
@@ -105,15 +105,15 @@ void Activate_Menu_Option_Tracking() {
        lcd.setCursor(0,1);
        lcd.print(F("P = "));
        lcd.print(P);
-       Serial.print(F("Tracking PID P = :"));
-       Serial.println(P);
+       message_out.print(F("Tracking PID P = :"));
+       message_out.println(P);
        Menu_Complete_Tracking = false;
        while (Menu_Complete_Tracking == false) {
              Read_Membrane_Keys();
              delay(100);
              //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-             Serial.println(F("Settings Saved"));
+             message_out.println(F("Settings Saved"));
              Menu_Complete_Tracking = true;
              lcd.clear();
              lcd.setCursor(0,0);
@@ -135,8 +135,8 @@ void Activate_Menu_Option_Tracking() {
                lcd.setCursor(0,1);
                lcd.print(F("P : "));
                lcd.print(P);
-               Serial.print(F("Tracking PID P = :"));
-               Serial.println(P);
+               message_out.print(F("Tracking PID P = :"));
+               message_out.println(P);
                }
              if (!Minus_Key_X) {
                P = P - 0.01;
@@ -146,8 +146,8 @@ void Activate_Menu_Option_Tracking() {
                lcd.setCursor(0,1);
                lcd.print(F("P : "));
                lcd.print(P);
-               Serial.print(F("Tracking PID P = :"));
-               Serial.println(P);
+               message_out.print(F("Tracking PID P = :"));
+               message_out.println(P);
                }
              
              }
@@ -178,13 +178,13 @@ if (Menu_Mode_Selection == 2) {
           delay(100);
           //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-               Serial.println(F("Charging Station Settings Saved"));
+               message_out.println(F("Charging Station Settings Saved"));
                Menu_Complete_Tracking = true;
                lcd.clear();
                lcd.setCursor(0,0);
                lcd.print(F("Dock Saved"));
-               Serial.print(F("Dock:"));
-               Serial.println(Use_Charging_Station);
+               message_out.print(F("Dock:"));
+               message_out.println(Use_Charging_Station);
                delay(2000);
                lcd.clear();          
                EEPROM.write(47 , 1);
@@ -197,8 +197,8 @@ if (Menu_Mode_Selection == 2) {
                lcd.print(F("Status : "));
                Use_Charging_Station = 1;
                lcd.print(F("ON "));
-               Serial.print(F("DOCK:"));
-               Serial.println("Use_Charging_Station");
+               message_out.print(F("DOCK:"));
+               message_out.println("Use_Charging_Station");
                delay(100);
                }
              if (!Minus_Key_X) {
@@ -206,8 +206,8 @@ if (Menu_Mode_Selection == 2) {
                lcd.print(F("Status : "));
                Use_Charging_Station = 0;
                lcd.print(F("OFF"));
-               Serial.print(F("DOCK:"));
-               Serial.println(Use_Charging_Station);
+               message_out.print(F("DOCK:"));
+               message_out.println(Use_Charging_Station);
                delay(100);
                }
      }
@@ -240,7 +240,7 @@ if (Menu_Mode_Selection == 3) {
           delay(100);
           //Enter Code Here to Cycle until stop key is pressed.
              if(!Start_Key_X){
-               Serial.println(F("Charging Station Settings Saved"));
+               message_out.println(F("Charging Station Settings Saved"));
                Menu_Complete_Tracking = true;
                lcd.clear();
                lcd.setCursor(0,0);
@@ -325,7 +325,7 @@ if (Menu_Mode_Selection == 3) {
              if(!Start_Key_X){
              
              if (Set == 2) { 
-               Serial.println(F("Settings Saved"));
+               message_out.println(F("Settings Saved"));
                Menu_Complete_Tracking = true;
                lcd.clear();
                lcd.setCursor(0,0);
@@ -435,7 +435,7 @@ if (Menu_Mode_Selection == 3) {
              if(!Start_Key_X){
              
              if (Set == 2) { 
-               Serial.println(F("Settings Saved"));
+               message_out.println(F("Settings Saved"));
                Menu_Complete_Tracking = true;
                lcd.clear();
                lcd.setCursor(0,0);
@@ -543,7 +543,7 @@ if (Menu_Mode_Selection == 3) {
              if(!Start_Key_X){
              
              if (Set == 2) { 
-               Serial.println(F("Settings Saved"));
+               message_out.println(F("Settings Saved"));
                Menu_Complete_Tracking = true;
                lcd.clear();
                lcd.setCursor(0,0);

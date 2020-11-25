@@ -32,8 +32,8 @@ void Print_Membrane_Switch_Input_Settings() {
      Menu_View = 0;
 
     
-      Serial.println();
-      Serial.println(F("Settings Menu Activated"));
+      message_out.println();
+      message_out.println(F("Settings Menu Activated"));
       Menu_Complete_Settings = false;                                // Menu complete will return to the normal loop
       lcd.clear();
       delay(5);
@@ -53,12 +53,12 @@ void Print_Membrane_Switch_Input_Settings() {
              
         if(!Start_Key_X){
           Menu_Complete_Settings = true;
-          Serial.println(F("Start key is pressed"));
+          message_out.println(F("Start key is pressed"));
           lcd.clear();
           Activate_Menu_Option_Settings();
           }
         if(!Plus_Key_X) {
-          Serial.println(F("+ key is pressed"));
+          message_out.println(F("+ key is pressed"));
           Menu_View = Menu_View - 1;
           Run_Menu_Order_Settings();
           }
@@ -67,7 +67,7 @@ void Print_Membrane_Switch_Input_Settings() {
           Run_Menu_Order_Settings();
         }
         if(!Stop_Key_X){
-          Serial.println(F("Stop key is pressed"));
+          message_out.println(F("Stop key is pressed"));
           Menu_Complete_Settings = true;
           lcd.clear();
           lcd.setCursor(0,0);
@@ -85,7 +85,7 @@ void Print_Membrane_Switch_Input_Settings() {
  void Run_Menu_Order_Settings() {
      if (Menu_View > Max_Options_Settings) Menu_View = Menu_View -1;
      if (Menu_View < 0) Menu_View = Menu_View + 1;     
-     Serial.print(F("- key is pressed "));
+     message_out.print(F("- key is pressed "));
      lcd.clear();
      lcd.setCursor(1,0);
      Print_LCD_Menu_Settings(Menu_View);
@@ -94,10 +94,10 @@ void Print_Membrane_Switch_Input_Settings() {
      lcd.setCursor(0,0);
      lcd.print(">");
      Menu_Mode_Selection = Menu_View;
-     Serial.print(F("Menu View : "));
-     Serial.print(Menu_View);
-     Serial.print(F("| Menu Selection"));
-     Serial.println(Menu_Mode_Selection);
+     message_out.print(F("Menu View : "));
+     message_out.print(Menu_View);
+     message_out.print(F("| Menu Selection"));
+     message_out.println(Menu_Mode_Selection);
      delay(100);
      }
 
@@ -109,7 +109,7 @@ void Activate_Menu_Option_Settings() {
       if (Menu_Mode_Selection == 1) {
         lcd.clear();
         lcd.print("Alarms Setup");
-        Serial.println(F("Alarms Setup Selected"));
+        message_out.println(F("Alarms Setup Selected"));
         Menu_Mode_Selection = 0;
         delay(1000);
         lcd.clear();
@@ -121,7 +121,7 @@ void Activate_Menu_Option_Settings() {
       if (Menu_Mode_Selection == 2) {
         lcd.clear();
         lcd.print("Sensor Setup");
-        Serial.println(F("Sensor Setup Selected"));
+        message_out.println(F("Sensor Setup Selected"));
         Menu_Mode_Selection = 0;
         delay(1000);
         lcd.clear();
@@ -132,7 +132,7 @@ void Activate_Menu_Option_Settings() {
       if (Menu_Mode_Selection == 3) {
         lcd.clear();
         lcd.print("Motion Setup");
-        Serial.println(F("Motion Setup Selected"));
+        message_out.println(F("Motion Setup Selected"));
         Menu_Mode_Selection = 0;
         delay(1000);
         lcd.clear();
@@ -143,7 +143,7 @@ void Activate_Menu_Option_Settings() {
       if (Menu_Mode_Selection == 4) {
         lcd.clear();
         lcd.print("Tracking Setup");
-        Serial.println(F("Tracking Setup Selected"));
+        message_out.println(F("Tracking Setup Selected"));
         Menu_Mode_Selection = 0;
         delay(1000);
         lcd.clear();
@@ -155,7 +155,7 @@ void Activate_Menu_Option_Settings() {
       if (Menu_Mode_Selection == 5) {
         lcd.clear();
         lcd.print("NAVI Setup");
-        Serial.println(F("NAVISetup Selected"));
+        message_out.println(F("NAVISetup Selected"));
         Menu_Mode_Selection = 0;
         delay(1000);
         lcd.clear();
@@ -167,7 +167,7 @@ void Activate_Menu_Option_Settings() {
       if (Menu_Mode_Selection == 7) {
         lcd.clear();
         lcd.print("BETA Commands");
-        Serial.println(F("BETA Section"));
+        message_out.println(F("BETA Section"));
         Menu_Mode_Selection = 0;
         delay(1000);
         lcd.clear();
@@ -186,7 +186,7 @@ void Activate_Menu_Option_Settings() {
        lcd.print("EEPROM Clear ?");
        lcd.setCursor(0,1);
        lcd.print("Yes/No");
-       Serial.println(F("Clear EEPROM Yes/No   - Press Up for Yes and Down for No.  Start to Confirm"));
+       message_out.println(F("Clear EEPROM Yes/No   - Press Up for Yes and Down for No.  Start to Confirm"));
        Menu_Mode_Selection = 0;
        Menu_Complete = false;
        int Answer = 0;
@@ -195,7 +195,7 @@ void Activate_Menu_Option_Settings() {
           Read_Membrane_Keys();
           delay(100);
            if(!Start_Key_X){
-             Serial.println(F("Stop key is pressed"));
+             message_out.println(F("Stop key is pressed"));
              Menu_Complete = true;
              lcd.clear();
              lcd.setCursor(0,0);
@@ -219,14 +219,14 @@ void Activate_Menu_Option_Settings() {
                Answer = 1;
                lcd.setCursor(0,1);
                lcd.print("Yes    ");
-               Serial.println(F("Clear EEPROM = YES....  Press Start to Confirm"));
+               message_out.println(F("Clear EEPROM = YES....  Press Start to Confirm"));
                delay(100);
                }
              if (!Minus_Key_X) {
                Answer = 0;
                lcd.setCursor(0,1);
                lcd.print("No     ");               
-               Serial.println(F("Clear EEPROM = No....Press Start to Confirm"));
+               message_out.println(F("Clear EEPROM = No....Press Start to Confirm"));
                delay(100);
                }
        }

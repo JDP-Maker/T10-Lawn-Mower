@@ -16,8 +16,8 @@ void Print_Membrane_Switch_Input_BETA() {
      Menu_Mode_Selection = 0;
      Menu_View = 0;
 
-      Serial.println();
-      Serial.println(F("BETA Menu Activated"));
+      message_out.println();
+      message_out.println(F("BETA Menu Activated"));
       Menu_Complete = false;                                // Menu complete will return to the normal loop
       lcd.clear();
       delay(5);
@@ -35,13 +35,13 @@ void Print_Membrane_Switch_Input_BETA() {
              
         if(!Start_Key_X){
           Menu_Complete = true;
-          Serial.println(F("Start key is pressed"));
+          message_out.println(F("Start key is pressed"));
           Activate_Menu_Option_BETA();
           lcd.clear();
           
           }
         if(!Plus_Key_X) {
-          Serial.println(F("+ key is pressed"));
+          message_out.println(F("+ key is pressed"));
           Menu_View = Menu_View - 1;
           Run_Menu_Order_BETA();
           }
@@ -50,7 +50,7 @@ void Print_Membrane_Switch_Input_BETA() {
           Run_Menu_Order_BETA();
         }
         if(!Stop_Key_X){
-          Serial.println(F("Stop key is pressed"));
+          message_out.println(F("Stop key is pressed"));
           Menu_Complete = true;
           lcd.clear();
           lcd.setCursor(0,0);
@@ -71,7 +71,7 @@ void Print_Membrane_Switch_Input_BETA() {
  void Run_Menu_Order_BETA() {
      if (Menu_View > Max_Options_BETA) Menu_View = Menu_View -1;
      if (Menu_View < 0) Menu_View = Menu_View + 1;      
-     Serial.print(F("- key is pressed "));
+     message_out.print(F("- key is pressed "));
      lcd.clear();
      lcd.setCursor(1,0);
      Print_LCD_Menu_BETA(Menu_View);
@@ -80,10 +80,10 @@ void Print_Membrane_Switch_Input_BETA() {
      lcd.setCursor(0,0);
      lcd.print(">");
      Menu_Mode_Selection = Menu_View;
-     Serial.print(F("Menu View : "));
-     Serial.print(Menu_View);
-     Serial.print(F("| Menu Selection"));
-     Serial.println(Menu_Mode_Selection);
+     message_out.print(F("Menu View : "));
+     message_out.print(Menu_View);
+     message_out.print(F("| Menu Selection"));
+     message_out.println(Menu_Mode_Selection);
      delay(100);
      }
 
@@ -100,7 +100,7 @@ void Activate_Menu_Option_BETA() {
       if (Menu_Mode_Selection == 3) {
         lcd.clear();
         lcd.print("Tilt Test");
-        Serial.println(F("Tilt Test Selected"));
+        message_out.println(F("Tilt Test Selected"));
         Menu_Mode_Selection = 0;
         delay(2000);
         lcd.clear();
@@ -113,7 +113,7 @@ void Activate_Menu_Option_BETA() {
           Check_Tilt_Tip_Angle();
           
              if(!Stop_Key_X){
-             Serial.println(F("Stop key is pressed"));
+             message_out.println(F("Stop key is pressed"));
              Menu_Complete = true;
              lcd.clear();
              lcd.setCursor(0,0);
