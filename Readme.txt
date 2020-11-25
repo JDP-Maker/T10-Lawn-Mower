@@ -1,4 +1,8 @@
-ReP_AL-3D-Lawn-Mower
+T10-Lawn-Mower
+
+This is John Page's version of code devloped by ReP_AL
+Branch started with V9.0
+
 Code and Files for the ReP_AL 3D Printed Lawn Mower
 ---------------------------------------------------
 
