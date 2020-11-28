@@ -38,7 +38,9 @@ int pathlen;
 const int XP = 8, XM = A2, YP = A3, YM = 9; //ID=0x9341
 
 //const int TS_LEFT = 133, TS_RT = 921, TS_TOP = 964, TS_BOT = 91;   // if the LCD orientation is changed these also need to be changed
-const int TS_LEFT = 960, TS_RT = 94, TS_TOP = 910, TS_BOT = 108; 
+//const int TS_LEFT = 955, TS_RT = 94, TS_TOP = 921, TS_BOT = 138; 
+const int TS_LEFT = 94, TS_RT = 955, TS_TOP = 138, TS_BOT = 921;
+
 
 
 // Set the PIN OUTS for the Touch Screen Shield.
@@ -454,12 +456,12 @@ void setup(void){
     uint16_t ID = tft.readID();
     Serial.print(F("TFT ID = 0x"));
     Serial.println(ID, HEX);
-    Serial.println(F("ReP_AL Mower Touchscreen"));
+    Serial.println(F("T10 Robot Mower Touchscreen"));
     Serial.println(F("Please Wait....."));
     if (ID == 0xD3D3) ID = 0x9486; // write-only shield
     tft.begin(ID);
     //tft.setRotation(1); 
-    tft.setRotation(3);            //0 = PORTRAIT USB Top Right   1 = Landscape USB TL   2 =    Portrait USB BL    3 = Landacape USB  BR
+    tft.setRotation(1);            //0 = PORTRAIT USB Top Right   1 = Landscape USB TL   2 =    Portrait USB BL    3 = Landacape USB  BR
     tft.fillScreen(BLACK);
     Load_EEPROM_Values();           // Load saved settings on TFT MEGA
 
@@ -478,7 +480,7 @@ void setup(void){
 tft.setTextSize(2); 
 tft.setTextColor(GREEN, BLACK);           // Text Colour/ Background Colour
 tft.setCursor(0, 0);                      // Text Coordinates X, Y
-tft.println(F("REP_AL Robot Lawn Mower"));
+tft.println(F("T10 Robot Lawn Mower"));
 tft.println(F(" "));
 tft.println(F("STARTING TFT MENU"));
 tft.println(F("PLEASE WAIT...."));
